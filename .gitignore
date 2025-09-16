@@ -50,3 +50,6 @@ package-lock.json
 # Misc
 *.tgz
 *.swp
+
+# Confidential data (not to be committed)
+teams.json
