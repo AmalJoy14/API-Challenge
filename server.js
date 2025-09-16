@@ -1,11 +1,12 @@
+
+import dotenv from 'dotenv';
+dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 
 import express from 'express';
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+
 
 // Basic Express app using ES Module syntax
 const app = express();
@@ -30,16 +31,14 @@ app.get('/api-challenge', (req, res) => {
             error: 'Invalid input. Usage: /api-challenge?team=1-10&a=integer&b=integer'
         });
     }
-    // Use absolute path for teams.json
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    const teamsPath = path.join(__dirname, 'teams.json');
+
+    // Load teams from .env
     let teams;
     try {
-        const data = fs.readFileSync(teamsPath, 'utf-8');
-        teams = JSON.parse(data);
+        if (!process.env.TEAMS_JSON) throw new Error('TEAMS_JSON not set in .env');
+        teams = JSON.parse(process.env.TEAMS_JSON);
     } catch (err) {
-        return res.status(500).json({ error: `Could not load team data. Checked path: ${teamsPath}` });
+        return res.status(500).json({ error: `Could not load team data from .env: ${err.message}` });
     }
 
     const teamEntry = teams.find(t => t.team === teamNum);
