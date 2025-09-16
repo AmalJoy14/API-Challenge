@@ -10,6 +10,10 @@ import { fileURLToPath } from 'url';
 // Basic Express app using ES Module syntax
 const app = express();
 
+app.get('/', (req, res) => {
+    res.send('API Challenge');
+});
+
 app.get('/api-challenge', (req, res) => {
         
     const { team, a, b } = req.query;
