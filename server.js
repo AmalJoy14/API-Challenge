@@ -100,6 +100,11 @@ app.get('/api-challenge', (req, res) => {
         if (digitSum(numB) !== digitSum(teamEntry.b)) {
             hints.push(`The sum of the digits in integer 'b' is ${digitSum(teamEntry.b)}`);
         }
+        // If no hints, add fallback difference hint
+        if (hints.length === 0) {
+            const diff = (teamEntry.a - teamEntry.b) ;
+            hints.push(`The difference between Integer 'a' and 'b' is ${diff}`);
+        }
         const hint = hints[Math.floor(Math.random() * hints.length)];
         return res.json({
             team: teamNum,
