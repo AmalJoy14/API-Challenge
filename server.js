@@ -51,7 +51,8 @@ app.get('/api-challenge', (req, res) => {
             team: teamNum,
             a: numA,
             b: numB,
-            message: 'Correct combination!'
+            message: 'Correct combination!',
+            link: 'https://www.hackerrank.com/ping-of-destiny'
         });
     } else {
         // Hints set, add sign hint only if guessed sign is wrong
